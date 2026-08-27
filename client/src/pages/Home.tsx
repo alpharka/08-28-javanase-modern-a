@@ -79,13 +79,14 @@ export default function Home() {
   });
   const audioRef = useRef<HTMLAudioElement>(null);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const spreadRef = useRef<HTMLElement>(null);
   const countdown = useCountdown();
 
   useEffect(() => {
     const observer = new IntersectionObserver((observations) => {
       const visible = observations.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (visible?.target.id && NAV.some((item) => item.id === visible.target.id)) setActive(visible.target.id);
-    }, { root: null, threshold: [0.25, 0.5, 0.75] });
+    }, { root: spreadRef.current, threshold: [0.25, 0.5, 0.75] });
     NAV.forEach(({ id }) => sectionRefs.current[id] && observer.observe(sectionRefs.current[id]!));
     return () => observer.disconnect();
   }, [opened]);
@@ -94,6 +95,19 @@ export default function Home() {
     document.body.style.overflow = lightbox !== null ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [lightbox]);
+
+  useEffect(() => {
+    const onHorizontalKey = (event: KeyboardEvent) => {
+      if (!opened || lightbox !== null) return;
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault();
+      const currentIndex = NAV.findIndex((item) => item.id === active);
+      const nextIndex = Math.min(NAV.length - 1, Math.max(0, currentIndex + (event.key === "ArrowRight" ? 1 : -1)));
+      if (nextIndex !== currentIndex) goTo(NAV[nextIndex].id);
+    };
+    window.addEventListener("keydown", onHorizontalKey);
+    return () => window.removeEventListener("keydown", onHorizontalKey);
+  }, [opened, lightbox, active]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -109,7 +123,7 @@ export default function Home() {
     setOpened(true);
     window.setTimeout(() => { audioRef.current?.play().then(() => setMusicOn(true)).catch(() => undefined); }, 650);
   };
-  const goTo = (id: string) => sectionRefs.current[id]?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const goTo = (id: string) => sectionRefs.current[id]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
   const copyValue = async (key: string, value: string) => {
     try { await navigator.clipboard.writeText(value); } catch { const area = document.createElement("textarea"); area.value = value; document.body.appendChild(area); area.select(); document.execCommand("copy"); area.remove(); }
     setCopied(key); window.setTimeout(() => setCopied(""), 2000);
@@ -146,7 +160,8 @@ export default function Home() {
         <button className="sound-button" onClick={() => { if (musicOn) { audioRef.current?.pause(); setMusicOn(false); } else { audioRef.current?.play().then(() => setMusicOn(true)).catch(() => undefined); } }} aria-label={musicOn ? "Jeda musik" : "Putar musik"}>{musicOn ? <Pause size={15} /> : <Music2 size={15} />} <span>{musicOn ? "Musik on" : "Musik off"}</span></button>
       </header>
 
-      <main className="spread" aria-label="Isi undangan">
+      <main ref={spreadRef} className="spread" aria-label="Isi undangan" tabIndex={-1}>
+        <div className="swipe-hint" aria-hidden="true"><ArrowLeft size={13} /> Geser kanan · kiri <ArrowRight size={13} /></div>
         <section className="intro-panel" aria-label="Pembuka">
           <div className="intro-copy"><SectionEyebrow number="00" >Sebuah awal yang baru</SectionEyebrow><h2>Dua langkah,<br /><i>satu rumah.</i></h2><p>Dengan segala kerendahan hati, kami mengundang Anda untuk hadir di hari ketika dua perjalanan memilih untuk berjalan dalam satu arah.</p><button className="text-link" onClick={() => goTo("cerita")}>Baca cerita kami <ArrowDown size={16} /></button></div>
           <div className="intro-stamp">24<br /><small>OCT</small><br />26</div>
