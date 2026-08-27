@@ -1,8 +1,6 @@
-# Revisi Navigasi Horizontal
+# Revisi Tipografi dan Spacing
 
-- [x] Ubah `.spread` menjadi horizontal scroll-snap container.
-- [x] Jadikan intro dan setiap section sebagai slide full viewport dengan overflow internal yang aman.
-- [x] Sinkronkan IntersectionObserver dengan root horizontal dan navigasi sticky.
-- [x] Perbarui `scrollIntoView` agar memilih arah horizontal.
-- [x] Tambahkan kontrol keyboard kanan-kiri dan petunjuk swipe.
-- [x] Verifikasi desktop/mobile, TypeScript check, production build, dan checkpoint baru.
+- [x] Naikkan ukuran body text, label, metadata, dan kontrol navigasi.
+- [x] Tambahkan padding horizontal dan vertical pada slide serta blok konten.
+- [x] Perbaiki line-height dan jarak antar paragraf agar tidak mepet.
+- [x] Verifikasi mobile/desktop, build, dan checkpoint baru.
