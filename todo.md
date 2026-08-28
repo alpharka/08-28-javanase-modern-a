@@ -1,6 +1,6 @@
-# Revisi Tipografi dan Spacing
+# Revisi Margin Konten
 
-- [x] Naikkan ukuran body text, label, metadata, dan kontrol navigasi.
-- [x] Tambahkan padding horizontal dan vertical pada slide serta blok konten.
-- [x] Perbaiki line-height dan jarak antar paragraf agar tidak mepet.
-- [x] Verifikasi mobile/desktop, build, dan checkpoint baru.
+- [x] Tambahkan margin kiri-kanan yang lebih lega pada seluruh slide.
+- [x] Batasi lebar blok teks dan layout agar tidak melebar sampai tepi.
+- [x] Sesuaikan padding mobile tanpa mengganggu swipe horizontal.
+- [x] Verifikasi build dan checkpoint baru.
