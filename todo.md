@@ -1,6 +1,6 @@
-# Revisi Margin Konten
+# Perbaikan Darurat Layout
 
-- [x] Tambahkan margin kiri-kanan yang lebih lega pada seluruh slide.
-- [x] Batasi lebar blok teks dan layout agar tidak melebar sampai tepi.
-- [x] Sesuaikan padding mobile tanpa mengganggu swipe horizontal.
-- [x] Verifikasi build dan checkpoint baru.
+- [x] Audit selector padding slide, intro, cover, dan grid konten.
+- [x] Terapkan safe-area margin kiri-kanan yang konsisten pada desktop dan mobile.
+- [x] Cegah blok teks melebar dan menempel ke viewport.
+- [x] Verifikasi screenshot, build, dan checkpoint stabil.
