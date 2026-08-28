@@ -1,7 +1,7 @@
-# Perbaikan Responsive Mobile dan Desktop
+# Diagnosis dan Perbaikan Struktural
 
-- [x] Tambahkan safe-area kiri-kanan yang konsisten untuk konten section mobile.
-- [x] Beri offset dan ruang aman agar header atas tidak menimpa isi section.
-- [x] Izinkan scroll vertikal di dalam setiap section desktop dan mobile saat konten panjang.
-- [x] Pertahankan horizontal swipe antar-section dan sticky navigation bawah.
-- [x] Verifikasi screenshot mobile/desktop, build, dan checkpoint baru.
+- [x] Identifikasi selector scroll yang saling bertabrakan antara `.spread`, `.panel`, dan child section.
+- [x] Pisahkan horizontal rail dari vertical scroll area agar gesture tidak saling mengunci.
+- [x] Tambahkan wrapper konten dengan offset header yang eksplisit pada setiap section.
+- [x] Pastikan sticky navigation tidak menutupi konten atau area scroll.
+- [x] Verifikasi issue pada viewport mobile dan desktop, lalu simpan checkpoint stabil.

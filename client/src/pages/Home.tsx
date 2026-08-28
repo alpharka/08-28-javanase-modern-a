@@ -123,7 +123,11 @@ export default function Home() {
     setOpened(true);
     window.setTimeout(() => { audioRef.current?.play().then(() => setMusicOn(true)).catch(() => undefined); }, 650);
   };
-  const goTo = (id: string) => sectionRefs.current[id]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+  const goTo = (id: string) => {
+    const target = sectionRefs.current[id];
+    if (!target || !spreadRef.current) return;
+    spreadRef.current.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+  };
   const copyValue = async (key: string, value: string) => {
     try { await navigator.clipboard.writeText(value); } catch { const area = document.createElement("textarea"); area.value = value; document.body.appendChild(area); area.select(); document.execCommand("copy"); area.remove(); }
     setCopied(key); window.setTimeout(() => setCopied(""), 2000);
